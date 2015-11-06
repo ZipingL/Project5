@@ -7,7 +7,7 @@ package project5;
 
 import java.util.*;
 import java.lang.*;
-import project4.Main;
+import project5.Main;
 /* see the PDF for descriptions of the methods and fields in this class
  * you may add fields, methods or inner classes to Critter ONLY if you make your additions private
  * no new public, protected or default-package code or data can be added to Critter
@@ -184,10 +184,6 @@ public abstract class Critter {
 	public abstract void doTimeStep();
 	public abstract boolean fight(String oponent);
 	
-	
-	public static void worldTimeStep() {}
-	
-	public static void displayWorld() {}
 	
 	/* create and initialize a Critter subclass
 	 * critter_class_name must be the name of a concrete subclass of Critter, if not
@@ -548,7 +544,7 @@ public abstract class Critter {
 			}
 
 		}
-		s
+		
 		return encounterCritters;
 	}
 	

@@ -2,7 +2,7 @@
  * Ziping Liu zl3858
  * Ankit Sharma as63437
  */
-package project4;
+package project5;
 
 /*
  * Sharma Critter Properities:
@@ -53,6 +53,12 @@ public class Sharma extends Critter {
 			this.run(Critter.getRandomInt(8));
 		}
 		return false;
+	}
+
+	@Override
+	public CritterShape viewShape() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

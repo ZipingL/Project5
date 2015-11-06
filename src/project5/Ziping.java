@@ -2,7 +2,7 @@
  * Ziping Liu zl3858
  * Ankit Sharma as63437
  */
-package project4;
+package project5;
 
 /*
  * Ziping Critter Properities:
@@ -57,6 +57,12 @@ public class Ziping extends Critter {
 	public String toString()
 	{
 		return "Z";
+	}
+
+	@Override
+	public CritterShape viewShape() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

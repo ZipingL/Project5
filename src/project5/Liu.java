@@ -2,7 +2,7 @@
  * Ziping Liu zl3858
  * Ankit Sharma as63437
  */
-package project4;
+package project5;
 /*Liu Critter Properties
  * Liu only fights Ziping, or else it will attempt to run away from the encounter
  * Liu can only move in even numbered directions and will only walk or reproduce during timestep
@@ -52,6 +52,12 @@ public class Liu extends Critter {
 	public String toString()
 	{
 		return "L";
+	}
+
+	@Override
+	public CritterShape viewShape() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
