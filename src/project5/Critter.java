@@ -42,8 +42,12 @@ public abstract class Critter {
 	
 	public abstract CritterShape viewShape(); 
 	
+	// Summary: Return the toString() representation of a critter, if it exists
+	// in the looked direction space, if not return null
 	protected String look(int direction) {
+		// Generate coordinates in the given direction
 		int[] coords = generateCoordinates(1, direction, this.x_coord, this.y_coord);
+		// Check if a critter exists in that location
 		if(CritterWorld.currentWorldSnapShot[coords[1] + Params.world_border_width][coords[0] + Params.world_border_width] >= 64) {
 			return "" + CritterWorld.currentWorldSnapShot[coords[1] + Params.world_border_width][coords[0] + Params.world_border_width];
 		}
@@ -52,8 +56,17 @@ public abstract class Critter {
 			return null;
 		}
 	}
-	protected void look2(int direction) {
+	protected String look2(int direction) {
+		// Generate coordinates in the given direction
+		int[] coords = generateCoordinates(2, direction, this.x_coord, this.y_coord);
+		// Check if a critter exists in that location
+		if(CritterWorld.currentWorldSnapShot[coords[1] + Params.world_border_width][coords[0] + Params.world_border_width] >= 64) {
+			return "" + CritterWorld.currentWorldSnapShot[coords[1] + Params.world_border_width][coords[0] + Params.world_border_width];
+		}
 		
+		else {
+			return null;
+		}
 	}
 	
 	/* rest is unchanged from Project 4 */
@@ -191,7 +204,7 @@ public abstract class Critter {
 	public static void makeCritter(String critter_class_name) throws InvalidCritterException {
 			
 		try {
-			Class<?> generic = Class.forName("project4." + critter_class_name);
+			Class<?> generic = Class.forName("project5." + critter_class_name);
 			Critter c;
 			c = (Critter) generic.newInstance();
 			
@@ -215,7 +228,7 @@ public abstract class Critter {
 		
 		
 		try {
-			generic = Class.forName("project4." + critter_class_name);
+			generic = Class.forName("project5." + critter_class_name);
 			Critter c;
 			c = (Critter) generic.newInstance();
 			

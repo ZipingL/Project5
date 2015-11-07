@@ -6,6 +6,8 @@
 package project5;
 import java.util.*;
 
+import com.oracle.jrockit.jfr.InvalidValueException;
+
 //import com.sun.java.util.jar.pack.Package.Class.Method;
 
 import java.io.*;
@@ -263,12 +265,16 @@ public class Main {
 					count = Integer.parseInt(parsedInput.get(2));
 					break;
 				}
+				
+
 					
 				try{
+					if(count < 1)
+						throw new InvalidNumberException(count);
 					for(int i = 0; i < count; i ++)
 						Critter.makeCritter(parsedInput.get(1));	
 				} 
-				catch(InvalidCritterException e)
+				catch(InvalidCritterException | InvalidNumberException e)
 				{
 					System.out.println("error processing: " + rawInput);
 				}
