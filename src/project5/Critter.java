@@ -42,8 +42,19 @@ public abstract class Critter {
 	
 	public abstract CritterShape viewShape(); 
 	
-	protected void look(int direction) {}
-	protected void look2(int direction) {}
+	protected String look(int direction) {
+		int[] coords = generateCoordinates(1, direction, this.x_coord, this.y_coord);
+		if(CritterWorld.currentWorldSnapShot[coords[1] + Params.world_border_width][coords[0] + Params.world_border_width] >= 64) {
+			return "" + CritterWorld.currentWorldSnapShot[coords[1] + Params.world_border_width][coords[0] + Params.world_border_width];
+		}
+		
+		else {
+			return null;
+		}
+	}
+	protected void look2(int direction) {
+		
+	}
 	
 	/* rest is unchanged from Project 4 */
 	
@@ -68,41 +79,51 @@ public abstract class Critter {
 	private int y_coord;
 	
 	protected final void walk(int direction) {
-
 		subtractEnergy(Params.walk_energy_cost);
+		int[] coords = generateCoordinates(1, direction, this.x_coord, this.y_coord);
+		
+		x_coord = coords[0];
+		y_coord = coords[1];
+	}
+	
+	private static int[] generateCoordinates(int magnitude, int direction, int x_coord, int y_coord) {
 		
 		switch(direction){
 			
-		case 0: x_coord += 1;
+			case 0: x_coord += 1*magnitude;
 					break;
-			case 1: x_coord -= 1;
+			case 1: x_coord -= 1*magnitude;
 					break;
-			case 2: y_coord += 1;
+			case 2: y_coord += 1*magnitude;
 					break;
-			case 3: y_coord -= 1;
+			case 3: y_coord -= 1*magnitude;
 					break;
-			case 4: x_coord += 1;
-					y_coord += 1;
+			case 4: x_coord += 1*magnitude;
+					y_coord += 1*magnitude;
 					break;
-			case 5: x_coord -= 1;
-					y_coord += 1;
+			case 5: x_coord -= 1*magnitude;
+					y_coord += 1*magnitude;
 					break;
-			case 6: x_coord -= 1;
-					y_coord += 1;
+			case 6: x_coord -= 1*magnitude;
+					y_coord += 1*magnitude;
 					break;
-			case 7: x_coord -= 1;
-					y_coord -= 1;
+			case 7: x_coord -= 1*magnitude;
+					y_coord -= 1*magnitude;
 					break;				
 		}
 		
 		x_coord = checkCoordValidity(x_coord, Params.world_width);
 		y_coord = checkCoordValidity(y_coord, Params.world_height);
 		
+		int[] coords = new int[2];
+		coords[0] = x_coord;
+		coords[1] = y_coord;
+		return coords;
 	}
 	
 	// Summary: Checks if coord is in a valid range [0,max)
 	// and adjust coordinate if necessary to allow for world rap around
-	protected static final int checkCoordValidity(int coordinate,int max)
+	private static final int checkCoordValidity(int coordinate,int max)
 	{
 		if(coordinate >= max)
 		{
@@ -126,38 +147,16 @@ public abstract class Critter {
 	protected final void run(int direction) {
 
 		subtractEnergy(Params.run_energy_cost);
-		int x = this.x_coord;
-		int y = this.y_coord;
+		subtractEnergy(Params.walk_energy_cost);
+		int[] coords = generateCoordinates(2, direction, this.x_coord, this.y_coord);
 		
-		switch(direction) {
-		
-			case 0: x_coord += 2;
-					break;
-			case 1: x_coord -= 2;
-					break;
-			case 2: y_coord += 2;
-					break;
-			case 3: y_coord -= 2;
-					break;
-			case 4: x_coord += 2;
-					y_coord += 2;
-					break;
-			case 5: x_coord -= 2;
-					y_coord += 2;
-					break;
-			case 6: x_coord -= 2;
-					y_coord += 2;
-					break;
-			case 7: x_coord -= 2;
-					y_coord -= 2;
-					break;	
-		}		
-		x_coord = checkCoordValidity(x_coord, Params.world_width);
-		y_coord = checkCoordValidity(y_coord, Params.world_height);
+		x_coord = coords[0];
+		y_coord = coords[1];
+
 
 	}
-	private final void subtractEnergy(int energy)
-	{
+	private final void subtractEnergy(int energy){
+		
 		this.energy -= energy;
 	}
 	
@@ -286,6 +285,18 @@ public abstract class Critter {
 	
 	
 	public static void worldTimeStep() {
+		
+		// Get a snapshot of the world
+		char[][] array_slices = new char[Params.world_height + Params.world_border_width + 1][];
+		for(int i = 0; i < array_slices.length; i++)
+		{
+			array_slices[i] = new char[Params.world_width + Params.world_border_width + 1];
+		}
+		Critter.setUpWorldBorder(array_slices);
+		Critter.placeCritters(array_slices);
+		CritterWorld.currentWorldSnapShot = array_slices;
+		
+		
 		// Call doTimeStep for each critter (moves or reproduces them)	
 		if(CritterWorld.critterList == null)
 			return;
@@ -311,7 +322,7 @@ public abstract class Critter {
 		}
 		
 		// Get a snapshot of the world
-		char[][] array_slices = new char[Params.world_height + Params.world_border_width + 1][];
+		array_slices = new char[Params.world_height + Params.world_border_width + 1][];
 		for(int i = 0; i < array_slices.length; i++)
 		{
 			array_slices[i] = new char[Params.world_width + Params.world_border_width + 1];
