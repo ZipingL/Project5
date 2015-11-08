@@ -5,9 +5,23 @@
  */
 package project5;
 
+// Core Libraries
 import java.util.*;
 import java.lang.*;
 import project5.Main;
+
+// JavaFX Libraries
+import javafx.animation.AnimationTimer;
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcType;
+import javafx.stage.Stage;
+
+
 /* see the PDF for descriptions of the methods and fields in this class
  * you may add fields, methods or inner classes to Critter ONLY if you make your additions private
  * no new public, protected or default-package code or data can be added to Critter
@@ -618,6 +632,10 @@ public abstract class Critter {
 		INVALID
 	}
 	
+	public static void viewWorld(char [][] array_slices) {
+		javafx.application.Application.launch(CritterView.class);	
+	}
+	
 	//Summary: Prints out the current world of critters with a border around it
 	public static void displayWorld() {
 		
@@ -634,7 +652,8 @@ public abstract class Critter {
 		
 		setUpWorldBorder(array_slices);
 		placeCritters(array_slices);
-		printSlices(array_slices);
+		// printSlices(array_slices);
+		viewWorld(array_slices);
 		
 	}
 	
