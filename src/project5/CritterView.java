@@ -23,6 +23,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
 import javafx.stage.Stage;
+import project5.Controller.commandType;
 
 //import com.sun.java.util.jar.pack.Package.Class.Method;
 
@@ -66,7 +67,7 @@ public class CritterView extends Application {
 	        primaryStage.setScene(new Scene(border, 300, 250));
 	        
 	        primaryStage.show();
-	    
+	        System.out.println("Hi");
 	    }
 	    
 	    private VBox addVBox() {
@@ -77,12 +78,45 @@ public class CritterView extends Application {
 	    	
 	        Button buttonMake = new Button("Make");
 	        buttonMake.setPrefSize(100, 20);
+			buttonMake.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override public void handle(ActionEvent e) {
+			        Controller.runCommand("Craig", 10, commandType.MAKE);
+			    }
+			});
 	        Button buttonSeed = new Button("Seed");
+	        buttonSeed.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override public void handle(ActionEvent e) {
+			    	 Controller.runCommand(null, (long) Critter.getRandomInt(1000), commandType.SEED);
+			    }
+			});;
 	        buttonSeed.setPrefSize(100, 20);
 	        Button buttonQuit = new Button("Quit");
 	        buttonQuit.setPrefSize(100, 20);
+	        buttonQuit.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override public void handle(ActionEvent e) {
+
+			        System.exit(0);
+			    }
+			});
 	        
-	        vbox.getChildren().addAll(buttonMake, buttonSeed, buttonQuit);
+	        Button buttonStep = new Button("Step");
+	        buttonStep.setPrefSize(100, 20);
+	        buttonStep.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override public void handle(ActionEvent e) {
+
+			    	Controller.runCommand(null, (long) 1, commandType.STEP);
+			    }
+			});
+	        
+	        Button buttonProject4Show = new Button("Project 4 Show");
+	        buttonProject4Show.setPrefSize(100, 20);
+	        buttonProject4Show.setOnAction(new EventHandler<ActionEvent>() {
+			    @Override public void handle(ActionEvent e) {
+
+			    	Controller.runCommand(null, 0, commandType.SHOW);
+			    }
+			});
+	        vbox.getChildren().addAll(buttonMake, buttonSeed, buttonQuit, buttonStep, buttonProject4Show);
 	        
 	    	return vbox;
 	    }
@@ -90,7 +124,8 @@ public class CritterView extends Application {
 	    class ButtonEventHandler implements EventHandler<ActionEvent> {
 	    	@Override
 	    	public void handle(ActionEvent event) {
-	    		Controller.hang();
+	    		System.out.println("Fuck you");
+	   
 	    	}
 	    }
 	    	

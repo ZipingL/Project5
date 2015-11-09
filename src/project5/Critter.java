@@ -336,6 +336,7 @@ public abstract class Critter {
 		// Add algae to the critter world
 		for(int i = 0; i < Params.refresh_algae_count; i++)
 		{
+			System.out.println("Refresh");
 			try{ Critter.makeCritter("Algae"); }
 			catch(InvalidCritterException e)
 			{

@@ -7,7 +7,7 @@ package project5;
 import java.util.*;
 
 public class CritterWorld {
-	static ArrayList<Critter> critterList;
+	static ArrayList<Critter> critterList = new ArrayList<>();
 	static ArrayList<Critter> offspringList;
 	static char[][] currentWorldSnapShot;
 		
