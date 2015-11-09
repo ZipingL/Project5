@@ -16,6 +16,7 @@ import java.lang.reflect.Method;
 
 public class Controller {
 
+	// old main
 	public static void hang() {
 		
 		Scanner myScanner = new Scanner(System.in);
@@ -29,7 +30,7 @@ public class Controller {
 			String lineInput = myScanner.nextLine();
 			ArrayList<String> parsedLine = parseLineInput(lineInput);
 			commandType commandType = parseCommand(parsedLine);
-			quitStatus = runCommand(lineInput, parsedLine, commandType);
+			//quitStatus = runCommand(lineInput, parsedLine, commandType);
 		}
 		myScanner.close();
 		System.exit(0);
@@ -206,7 +207,7 @@ public class Controller {
 	}
 	
 	// runs the command, based on the given commandType 
-	public static boolean runCommand(String rawInput, ArrayList<String> parsedInput, commandType command)
+	public static boolean runCommand(String critter_name, long value, commandType command)
 	{
 		boolean quitStatus = false;
 		switch(command)
@@ -225,58 +226,36 @@ public class Controller {
 			
 			case STEP:
 			{
-				// Check if user just inputed "step"
-				if(parsedInput.size() == 1)
-				{
-					Critter.worldTimeStep(); // Moves critters
-				}
+
 				// Check if user inputed "step #", with # being the
 				// desired amount of steps to do
-				else if(parsedInput.size() == 2)
+				int count = (int) value;
+				for(int i = 0; i < count; i++)
 				{
-					int count = Integer.parseInt(parsedInput.get(1));
-					for(int i = 0; i < count; i++)
-					{
-						Critter.worldTimeStep();
-					}
+					Critter.worldTimeStep();
 				}
 				break;
 			}
 			
 			case SEED:
 			{
-				Critter.setSeed(Long.parseLong(parsedInput.get(1)));
+				Critter.setSeed(value);
 				break;
 			}
 			
 			case MAKE:
-			{
-				
-					
-				int count = 0; // number of desired critter to make into the world
-				switch(parsedInput.size())
-				{
-				// If there are just 2 arguments, make count just 1 e.g. (make algae)
-				case 2:
-					count = 1;
-					break;
-				// If there are 3 arguments, get the count from the third one e.g. (make algae #)
-				case 3:
-					count = Integer.parseInt(parsedInput.get(2));
-					break;
-				}
-				
-
+			{		
+				int count = (int) value; // number of desired critter to make into the world
 					
 				try{
 					if(count < 1)
 						throw new InvalidNumberException(count);
 					for(int i = 0; i < count; i ++)
-						Critter.makeCritter(parsedInput.get(1));	
+						Critter.makeCritter(critter_name);	
 				} 
 				catch(InvalidCritterException | InvalidNumberException e)
 				{
-					System.out.println("error processing: " + rawInput);
+					System.out.println("error processing: ");
 				}
 				break;
 			}
@@ -286,7 +265,7 @@ public class Controller {
 				
 				Class<?> generic;
 				try{
-				generic = Class.forName("project4." + parsedInput.get(1));
+				generic = Class.forName("project4." + critter_name);
 				Critter c = (Critter) generic.newInstance();
 				
 				if(generic.isInstance(new Craig()))
@@ -300,11 +279,10 @@ public class Controller {
 				args.add(List.class.getClasses());
 				
 				Method runStats = c.getClass().getMethod("runStats",cArg);
-				runStats.invoke(c, Critter.getInstances(parsedInput.get(1)));
-				// CS major gonna hate, double ee boys dont' give no fucks
+				runStats.invoke(c, Critter.getInstances(critter_name));
 				} catch(ClassNotFoundException | IllegalAccessException | InstantiationException | NoSuchMethodException | IllegalArgumentException | InvocationTargetException | InvalidCritterException e)
 				{
-					System.out.println("error processing: " + rawInput);
+					System.out.println("error processing: ");
 				}
 				break;
 			}
@@ -312,14 +290,14 @@ public class Controller {
 			
 			case PROCESS_ERROR:
 			{
-				System.out.println("error processing: " + rawInput);
+				System.out.println("error processing: ");
 				break;
 			}
 			
 			case DEFAULT:
 			default:
 			{
-				System.out.println("invalid command: " + rawInput);
+				System.out.println("invalid command: ");
 				break;
 			} 
 		}
