@@ -11,16 +11,12 @@ import java.lang.*;
 import project5.Main;
 
 // JavaFX Libraries
-import javafx.animation.AnimationTimer;
+import javafx.animation.*;
 import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
 import javafx.stage.Stage;
-
 
 /* see the PDF for descriptions of the methods and fields in this class
  * you may add fields, methods or inner classes to Critter ONLY if you make your additions private
@@ -632,8 +628,8 @@ public abstract class Critter {
 		INVALID
 	}
 	
-	public static void viewWorld(char [][] array_slices) {
-		javafx.application.Application.launch(CritterView.class);	
+	public static void viewWorld() {
+		Application.launch(CritterView.class);
 	}
 	
 	//Summary: Prints out the current world of critters with a border around it
@@ -653,7 +649,7 @@ public abstract class Critter {
 		setUpWorldBorder(array_slices);
 		placeCritters(array_slices);
 		// printSlices(array_slices);
-		viewWorld(array_slices);
+		viewWorld();
 		
 	}
 	
@@ -729,5 +725,65 @@ public abstract class Critter {
 		}
 	}
 	
+	private static class CritterView extends Application {
+		
+		public static void main(String[] args) {
+			Critter.displayWorld();
+		}
+		
+		@Override
+		public void start(Stage primaryStage) {
+			primaryStage.setTitle("Critter Sim");
 
+			Group root = new Group();
+	        Canvas canvas = new Canvas(Params.world_width * 5, Params.world_height * 3); // FULLSCREEN
+	        GraphicsContext gc = canvas.getGraphicsContext2D();
+	        drawCritters(gc);
+	        root.getChildren().add(canvas);
+	        primaryStage.setScene(new Scene(root));
+	        
+
+	        primaryStage.show();
+	        
+		}
+		
+		public void drawCritters(GraphicsContext gc) {
+			for(Critter c : CritterWorld.critterList) {
+				gc.setFill(c.viewColor());
+				switch(c.viewShape()) {
+				case CIRCLE :
+					gc.fillOval(c.x_coord, c.y_coord, 6, 6);
+					break;
+				case DIAMOND:
+					double[] DiamondxPoints = { c.x_coord - 3, c.x_coord, c.x_coord, c.x_coord + 3 };
+					double[] DiamondyPoints = { c.y_coord, c.y_coord - 3, c.y_coord + 3, c.y_coord };
+					int DiamondnPoints = 4;
+					gc.fillPolygon(DiamondxPoints, DiamondyPoints, DiamondnPoints);
+					break;
+				case SQUARE:
+					gc.fillRect(c.x_coord, c.y_coord, 6, 6);
+					break;
+				case STAR:
+					double[] StarxPoints = { c.x_coord, c.x_coord + 1, c.x_coord + 3, c.x_coord + 1,
+												c.x_coord, c.x_coord - 1, c.x_coord - 3, c.x_coord - 1 };
+					double[] StaryPoints = { c.y_coord + 3, c.y_coord + 1, c.y_coord, c.y_coord - 1,
+												c.y_coord - 3, c.y_coord - 1, c.y_coord, c.y_coord + 1 };
+					int StarnPoints = 8;
+					gc.fillPolygon(StarxPoints, StaryPoints, StarnPoints);
+					break;
+				case TRIANGLE:
+					double[] TrianglexPoints = { c.x_coord - 3, c.x_coord, c.x_coord, c.x_coord + 3 };
+					double[] TriangleyPoints = { c.y_coord, c.y_coord - 3, c.y_coord + 3, c.y_coord };
+					int TrianglenPoints = 4;
+					gc.fillPolygon(TrianglexPoints, TriangleyPoints, TrianglenPoints);
+					break;
+				default:
+					gc.fillText("E", c.x_coord, c.y_coord);
+					break;
+				}
+			}
+		}
+
+	}
+	
 }
