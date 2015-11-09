@@ -3,7 +3,7 @@
  * Ankit Sharma as63437
  */
 package project5;
-import project5.Main;
+import project5.Controller;
 
 public class Craig extends Critter {
 	

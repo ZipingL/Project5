@@ -13,17 +13,17 @@ package project5;
  */
 public class Ziping extends Critter {
 	
-	private Main.lastMove lastMoveTracker;
+	private Controller.lastMove lastMoveTracker;
 	@Override
 	public void doTimeStep() {
 		if(this.getEnergy() < Params.min_reproduce_energy)
 		{
-			lastMoveTracker = Main.lastMove.WALK;
+			lastMoveTracker = Controller.lastMove.WALK;
 			this.walk(Critter.getRandomInt(8));
 		}
 		else
 		{
-			lastMoveTracker = Main.lastMove.REPRODUCE;
+			lastMoveTracker = Controller.lastMove.REPRODUCE;
 			
 			Ziping baby = new Ziping();
 			reproduce(baby, Critter.getRandomInt(8));

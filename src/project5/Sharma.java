@@ -15,18 +15,18 @@ public class Sharma extends Critter {
 	
 	public String toString() { return "S"; }
 	
-	private Main.lastMove lastMoveTracker;
+	private Controller.lastMove lastMoveTracker;
 	@Override
 	public void doTimeStep() {
 
 		if (getEnergy() > Params.min_reproduce_energy) {
-			lastMoveTracker = Main.lastMove.REPRODUCE;
+			lastMoveTracker = Controller.lastMove.REPRODUCE;
 			Ankit child = new Ankit();
 			reproduce(child, Critter.getRandomInt(8));
 			
 		} else {
 			
-			lastMoveTracker = Main.lastMove.RUN;
+			lastMoveTracker = Controller.lastMove.RUN;
 			run(Critter.getRandomInt(8));
 		}	
 		

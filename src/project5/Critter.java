@@ -8,7 +8,7 @@ package project5;
 // Core Libraries
 import java.util.*;
 import java.lang.*;
-import project5.Main;
+import project5.Controller;
 
 // JavaFX Libraries
 import javafx.animation.*;
@@ -37,7 +37,7 @@ public abstract class Critter {
 	 * color to be the same as you background 
 	 * 
 	 * critters must override at least one of the following three methods, it is not 
-	 * proper for critters to remain invisible in the view
+	 * proper for critters to reController invisible in the view
 	 * 
 	 * If a critter only overrides the outline color, then it will look like a non-filled 
 	 * shape, at least, that's the intent. You can edit these default methods however you 
@@ -98,8 +98,8 @@ public abstract class Critter {
 	private int energy = 0;
 	protected int getEnergy() { return energy; }
 	
-	private int x_coord;
-	private int y_coord;
+	public int x_coord;
+	public int y_coord;
 	
 	protected final void walk(int direction) {
 		subtractEnergy(Params.walk_energy_cost);
@@ -628,10 +628,6 @@ public abstract class Critter {
 		INVALID
 	}
 	
-	public static void viewWorld() {
-		Application.launch(CritterView.class);
-	}
-	
 	//Summary: Prints out the current world of critters with a border around it
 	public static void displayWorld() {
 		
@@ -648,8 +644,7 @@ public abstract class Critter {
 		
 		setUpWorldBorder(array_slices);
 		placeCritters(array_slices);
-		// printSlices(array_slices);
-		viewWorld();
+		printSlices(array_slices);
 		
 	}
 	
@@ -727,7 +722,7 @@ public abstract class Critter {
 	
 	private static class CritterView extends Application {
 		
-		public static void main(String[] args) {
+		public static void Controller(String[] args) {
 			Critter.displayWorld();
 		}
 		

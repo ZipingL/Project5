@@ -8,18 +8,18 @@ package project5;
  * Liu can only move in even numbered directions and will only walk or reproduce during timestep
  */
 public class Liu extends Critter {
-	private Main.lastMove lastMoveTracker;
+	private Controller.lastMove lastMoveTracker;
 	@Override
 	public void doTimeStep() {
 		
 		if(this.getEnergy() < Params.min_reproduce_energy)
 		{
-			lastMoveTracker = Main.lastMove.RUN;
+			lastMoveTracker = Controller.lastMove.RUN;
 			this.run(Critter.getRandomInt(4) * 2);
 		}
 		else
 		{
-			lastMoveTracker = Main.lastMove.REPRODUCE;
+			lastMoveTracker = Controller.lastMove.REPRODUCE;
 			
 			Ziping baby = new Ziping();
 			reproduce(baby, Critter.getRandomInt(4)*2);
