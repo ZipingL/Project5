@@ -8,6 +8,8 @@ import java.util.*;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -16,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -32,6 +35,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class CritterView extends Application {
+	
+	ListView<String> listSteps = null;
+	ListView<String> listCritters = null;
 	
 	 public static void main(String[] args) {
 	        launch(CritterView.class, args);
@@ -71,6 +77,16 @@ public class CritterView extends Application {
 	    }
 	    
 	    private VBox addVBox() {
+	    	listSteps = new ListView<String>();
+	    	ObservableList<String> itemsSteps =FXCollections.observableArrayList (
+	    	    "1", "5", "100", "1000");
+	    	listSteps.setItems(itemsSteps);
+	    	
+	    	listCritters = new ListView<String>();
+	    	ObservableList<String> itemsCritters =FXCollections.observableArrayList (
+	    	    "Craig", "Ankit", "Sharma", "Ziping", "Liu");
+	    	listCritters.setItems(itemsCritters);
+	    	
 	    	VBox vbox = new VBox();
 	        vbox.setPadding(new Insets(15, 12, 15, 12));
 	        vbox.setSpacing(10);
@@ -80,12 +96,14 @@ public class CritterView extends Application {
 	        buttonMake.setPrefSize(100, 20);
 			buttonMake.setOnAction(new EventHandler<ActionEvent>() {
 			    @Override public void handle(ActionEvent e) {
-			        Controller.runCommand("Craig", 10, commandType.MAKE);
+			    	String input[] = getSelectedChoices();
+			        Controller.runCommand(input[1], Integer.parseInt(input[0]), commandType.MAKE);
 			    }
 			});
 	        Button buttonSeed = new Button("Seed");
 	        buttonSeed.setOnAction(new EventHandler<ActionEvent>() {
 			    @Override public void handle(ActionEvent e) {
+			    	
 			    	 Controller.runCommand(null, (long) Critter.getRandomInt(1000), commandType.SEED);
 			    }
 			});;
@@ -103,8 +121,8 @@ public class CritterView extends Application {
 	        buttonStep.setPrefSize(100, 20);
 	        buttonStep.setOnAction(new EventHandler<ActionEvent>() {
 			    @Override public void handle(ActionEvent e) {
-
-			    	Controller.runCommand(null, (long) 1, commandType.STEP);
+			    	String input[] = getSelectedChoices();
+			    	Controller.runCommand(null, Integer.parseInt(input[0]), commandType.STEP);
 			    }
 			});
 	        
@@ -116,9 +134,18 @@ public class CritterView extends Application {
 			    	Controller.runCommand(null, 0, commandType.SHOW);
 			    }
 			});
-	        vbox.getChildren().addAll(buttonMake, buttonSeed, buttonQuit, buttonStep, buttonProject4Show);
+	        vbox.getChildren().addAll(buttonMake, buttonSeed, buttonQuit, buttonStep, buttonProject4Show, listSteps, listCritters);
 	        
 	    	return vbox;
+	    }
+	    
+	     String[] getSelectedChoices()
+	    {	
+	    	String[] inputs = new String[2];
+	    	inputs[0] = listSteps.getSelectionModel().getSelectedItem();
+	    	inputs[1] = listCritters.getSelectionModel().getSelectedItem();
+	    	
+	    	return inputs;
 	    }
 	    
 	    class ButtonEventHandler implements EventHandler<ActionEvent> {
