@@ -635,7 +635,7 @@ public abstract class Critter {
 	}
 	
 	//Summary: Prints out the current world of critters with a border around it
-	public static void displayWorld() {
+	public static void displayWorld2() {
 		
 
 		// An array of horizontal slices of the world
@@ -728,8 +728,10 @@ public abstract class Critter {
 	
 	private static class CritterView extends Application {
 		
+		public static int canvas;
+
 		public static void Controller(String[] args) {
-			Critter.displayWorld();
+			//Critter.displayWorld();
 		}
 		
 		@Override

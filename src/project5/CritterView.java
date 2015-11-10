@@ -36,6 +36,8 @@ import java.lang.reflect.Method;
 
 public class CritterView extends Application {
 	
+	Canvas canvas = null;
+	
 	ListView<String> listSteps = null;
 	ListView<String> listCritters = null;
 	

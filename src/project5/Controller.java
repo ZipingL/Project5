@@ -220,7 +220,8 @@ public class Controller {
 			
 			case SHOW:
 			{
-				Critter.displayWorld();
+				Critter.displayWorld2();
+				
 				break;
 			}
 			
