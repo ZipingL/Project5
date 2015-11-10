@@ -79,7 +79,7 @@ public class CritterView extends Application {
 	    private VBox addVBox() {
 	    	listSteps = new ListView<String>();
 	    	ObservableList<String> itemsSteps =FXCollections.observableArrayList (
-	    	    "1", "5", "100", "1000");
+	    	    "1", "25", "100", "1000");
 	    	listSteps.setItems(itemsSteps);
 	    	
 	    	listCritters = new ListView<String>();

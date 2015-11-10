@@ -4,8 +4,9 @@
  */
 package project5;
 /*Liu Critter Properties
- * Liu only fights Ziping, or else it will attempt to run away from the encounter
- * Liu can only move in even numbered directions and will only walk or reproduce during timestep
+ * Liu only fights Ziping and will only fight if there are other Ziping's around ziping, or else it will attempt to run away from the encounter
+ * while attempting to run away from encounters, if all spots around it are filled, it will fight instead
+ * Liu only walks or reproduces during timestep
  */
 public class Liu extends Critter {
 	private Controller.lastMove lastMoveTracker;
@@ -29,24 +30,42 @@ public class Liu extends Critter {
 
 	@Override
 	public boolean fight(String oponent) {
+		if(oponent.equals("@"))
+			return true;
 		// Fight if energy levels are at minimum required
 		if(oponent.equals("Z"))
-			return true;
-		
+		{
+			for(int i = 0; i < 8; i++)
+			{
+				if(look2(i).equals("Z"))
+					return true;
+			}
+	
+		}
 		switch(lastMoveTracker)
 		{
 		// If critter moved previously, then he cannot move again, thus he cannot run from the fight
 		case WALK:
 		case RUN:
-			break;
+			return false; //break
 		
 		// If critter did not move previously, then he can run
 		case REPRODUCE:
 		default:
 			// Don't fight if otherwise. Critter will Try to run instead
-			this.run(Critter.getRandomInt(4)*2);
+			int direction = Critter.getRandomInt(4)*2;
+			for(int i = 0; i < 8; i++)
+			{
+				if(look2(i) == null)
+				{
+					direction = i;
+					this.run(direction);
+					return false;
+				}
+			}
+			
 		}
-		return false;
+		return true;
 	}
 	
 	public String toString()

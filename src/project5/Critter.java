@@ -482,7 +482,7 @@ public abstract class Critter {
 			if(baseCritterFightOtherCritter == true)
 				baseEnergy = Critter.getRandomInt((CritterWorld.critterList.get(baseCritter).getEnergy() + 1));
 			if(otherCritterFightBaseCritter == true)
-				baseEnergy = Critter.getRandomInt(CritterWorld.critterList.get(baseCritter).getEnergy() + 1);
+				otherEnergy = Critter.getRandomInt(CritterWorld.critterList.get(baseCritter).getEnergy() + 1);
 			
 			
 			// Determine who kills who based on energy levels

@@ -34,7 +34,8 @@ public class Sharma extends Critter {
 
 	@Override
 	public boolean fight(String opponent) {
-		
+		if(opponent.equals("@"))
+			return true;
 		if(!opponent.equals("A")) {
 			return true;
 		}

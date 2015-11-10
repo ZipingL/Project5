@@ -36,6 +36,10 @@ public class Ankit extends Critter {
 	@Override
 	public boolean fight(String opponent) {
 		
+		if(opponent.equals("@"))
+				return true;
+		
+		
 		int tryFight = Critter.getRandomInt(8);
 		
 		if(tryFight >= 4) 

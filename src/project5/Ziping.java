@@ -8,6 +8,8 @@ package project5;
  * Ziping Critter Properities:
  * This critter will only fight Liu critters
  * If it encounters any other critter, it will try to run away
+ * Ziping critter will try to run away to a spot with a Liu critter in it
+ * Therefore, Ziping critter actively tries to find and kill Liu Critters
  * Ziping can move in all 8 directions but will only run or reproduce during timestep
  * 
  */
@@ -34,8 +36,12 @@ public class Ziping extends Critter {
 	@Override
 	public boolean fight(String oponent) {
 		
+				if(oponent.equals("@"))
+					return true;
 				if(oponent.equals("L"))
 					return true;
+				
+				
 				
 				switch(lastMoveTracker)
 				{
@@ -48,7 +54,14 @@ public class Ziping extends Critter {
 				case REPRODUCE:
 				default:
 					// Don't fight if otherwise. Critter will Try to run instead
-					this.run(Critter.getRandomInt(8));
+					int direction = Critter.getRandomInt(8);
+					for(int i = 0; i < 8; i++)
+					{
+						if(this.look2(i) == "L")
+						direction = i;
+					}
+				
+					this.run(direction);
 				}
 				return false;
 	}
