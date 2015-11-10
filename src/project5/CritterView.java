@@ -129,7 +129,7 @@ public class CritterView extends Application {
 			    	String input[] = getSelectedChoices();
 			    	Controller.runCommand(null, Integer.parseInt(input[0]), commandType.STEP);
 			    	
-			    	
+			    	clear(canvas);
 			    	GraphicsContext gc = canvas.getGraphicsContext2D();
 			    	drawShapes(gc);
 			        border.setCenter(canvas);
@@ -179,19 +179,23 @@ public class CritterView extends Application {
 	    		int x = c.x_coord;
 	    		int y = c.y_coord;
 	    		
-	    		gc.setFill(c.viewColor());
+	    		
 	    		
 	    		switch(c.viewShape()) {
 	    		case SQUARE:
-	    			gc.strokeRect((double) x, (double) y, 3, 3);
+	    			gc.setStroke(c.viewColor());
+	    			gc.strokeRect((double) x, (double) y, 5, 5);
 	    			break;
 	    		case CIRCLE:
-	    			gc.strokeOval((double) x, (double) y, 3, 3);
+	    			gc.setStroke(c.viewColor());
+	    			gc.strokeOval((double) x, (double) y, 5, 5);
 	    			break;
 	    		case DIAMOND:
 	    		case TRIANGLE:
 	    		
 	    		default:
+	    			gc.setFill(c.viewColor());
+	    			gc.fillOval((double) x, (double) y, 5, 5);
 	    			break;
 	    		}
 	    		
