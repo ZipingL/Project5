@@ -6,8 +6,8 @@ package project5;
  */
 public class Params {
 	public final static int world_border_width = 1;
-	public static int world_width = 160;
-	public static int world_height = 160;
+	public static int world_width = 50;
+	public static int world_height = 50;
 	public static int walk_energy_cost = 2;
 	public static int run_energy_cost = 5;
 	public static int rest_energy_cost = 0;

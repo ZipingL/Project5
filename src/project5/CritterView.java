@@ -34,7 +34,13 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+
+
 public class CritterView extends Application {
+	
+	Canvas canvas = null;
+	Stage globalStage = null;
+	BorderPane border = null;
 	
 	ListView<String> listSteps = null;
 	ListView<String> listCritters = null;
@@ -52,6 +58,8 @@ public class CritterView extends Application {
 	    @Override
 	    public void start(Stage primaryStage) {
 	    	
+	    	globalStage = primaryStage;
+	    	
 	    	if(primaryStage.equals(null)) return;
 	        
 	        primaryStage.setTitle("CritterSim");
@@ -62,18 +70,14 @@ public class CritterView extends Application {
 	        ButtonEventHandler handler = new ButtonEventHandler();
 	        btn.setOnAction(handler);
 	        
-	        BorderPane border = new BorderPane();
+	        border = new BorderPane();
 	        VBox vbox = addVBox();
 	        border.setLeft(vbox);
 	        
-	        Canvas canvas = new Canvas(600, 500);
-	        GraphicsContext gc = canvas.getGraphicsContext2D();
-	        drawShapes(gc);
+	        canvas = new Canvas(600, 500);
 	        border.setCenter(canvas);
-	        primaryStage.setScene(new Scene(border, 300, 250));
-	        
-	        primaryStage.show();
-	        System.out.println("Hi");
+	        globalStage.setScene(new Scene(border, 300, 250));
+	        globalStage.show();
 	    }
 	    
 	    private VBox addVBox() {
@@ -123,6 +127,13 @@ public class CritterView extends Application {
 			    @Override public void handle(ActionEvent e) {
 			    	String input[] = getSelectedChoices();
 			    	Controller.runCommand(null, Integer.parseInt(input[0]), commandType.STEP);
+			    	
+			    	
+			    	GraphicsContext gc = canvas.getGraphicsContext2D();
+			    	drawShapes(gc);
+			        border.setCenter(canvas);
+			        globalStage.setScene(new Scene(border, 300, 250));
+			        globalStage.show();
 			    }
 			});
 	        
@@ -157,6 +168,7 @@ public class CritterView extends Application {
 	    }
 	    	
 	    private void drawShapes(GraphicsContext gc) {
+
 	        gc.setFill(Color.GREEN);
 	        gc.setStroke(Color.BLUE);
 	        gc.setLineWidth(5);
@@ -175,10 +187,7 @@ public class CritterView extends Application {
 	        gc.strokeArc(110, 160, 30, 30, 45, 240, ArcType.ROUND);
 	        gc.fillPolygon(new double[]{10, 40, 10, 40},
 	                       new double[]{210, 210, 240, 240}, 4);
-//	        gc.strokePolygon(new double[]{60, 90, 60, 90},
-//	                         new double[]{210, 210, 240, 240}, 4);
-//	        gc.strokePolyline(new double[]{110, 140, 110, 140},
-//	                          new double[]{210, 210, 240, 240}, 4);
+	    	
 	    }
 	        
 
