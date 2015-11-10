@@ -480,9 +480,9 @@ public abstract class Critter {
 			CritterWorld.critterList.get(otherCritter).energy = CritterWorld.critterList.get(otherCritter).energy < 0 ? 0 : CritterWorld.critterList.get(otherCritter).energy;
 			
 			if(baseCritterFightOtherCritter == true)
-				baseEnergy = Critter.getRandomInt((CritterWorld.critterList.get(baseCritter).getEnergy() + 1));
+				baseEnergy = CritterWorld.critterList.get(baseCritter).getFightEnergy();
 			if(otherCritterFightBaseCritter == true)
-				otherEnergy = Critter.getRandomInt(CritterWorld.critterList.get(baseCritter).getEnergy() + 1);
+				otherEnergy = CritterWorld.critterList.get(otherCritter).getFightEnergy();
 			
 			
 			// Determine who kills who based on energy levels
@@ -627,6 +627,11 @@ public abstract class Critter {
 		B_WON,
 		BOTH_FLED,
 		INVALID
+	}
+	
+	private int getFightEnergy()
+	{
+		return getRandomInt(this.getEnergy() + 1);
 	}
 	
 	//Summary: Prints out the current world of critters with a border around it

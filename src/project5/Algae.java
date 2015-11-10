@@ -5,6 +5,11 @@ import project5.Critter.TestCritter;
 public class Algae extends TestCritter {
 
 	public String toString() { return "@"; }
+
+	private int getFightEnergy()
+	{
+		return 0;
+	}
 	
 	public boolean fight(String opponent) {
 		if (toString().equals(opponent)) { // same species as me!
