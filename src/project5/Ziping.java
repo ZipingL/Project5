@@ -75,8 +75,13 @@ public class Ziping extends Critter {
 	@Override
 	public CritterShape viewShape() {
 		// TODO Auto-generated method stub
-		return null;
+		return Critter.CritterShape.SQUARE;
 	}
+	
+	public javafx.scene.paint.Color viewColor() { 
+		return javafx.scene.paint.Color.RED; 
+	}
+	
 
 
 }

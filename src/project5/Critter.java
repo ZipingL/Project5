@@ -635,39 +635,8 @@ public abstract class Critter {
 	}
 	
 	//Summary: Prints out the current world of critters with a border around it
-	
-	public static void displayWorld() {
-    	if(CritterWorld.critterList == null) return;
-    	
-    	
-    	
-    	for(Critter c : CritterWorld.critterList) {
-    		
-    		int x = c.x_coord;
-    		int y = c.y_coord;
-    		
-    		GraphicsContext gc = CritterView.canvas;
-    		
-    		gc.setFill(c.viewColor());
-    		
-    		switch(c.viewShape()) {
-    		case SQUARE:
-    			gc.strokeRect((double) x, (double) y, 3, 3);
-    			break;
-    		case CIRCLE:
-    			gc.strokeOval((double) x, (double) y, 3, 3);
-    			break;
-    		case DIAMOND:
-    		case TRIANGLE:
-    		
-    		default:
-    			break;
-    		}
-    		
-    		
-    	}
-	}
-	
+
+
 	public static void displayWorld2() {
 		
 
@@ -759,12 +728,10 @@ public abstract class Critter {
 		}
 	}
 	
-	private static class CritterView extends Application {
-		
-		public static GraphicsContext canvas;
+	public static class CritterView extends Application {
 
 		public static void Controller(String[] args) {
-			Critter.displayWorld();
+			//Critter.displayWorld();
 		}
 		
 		@Override

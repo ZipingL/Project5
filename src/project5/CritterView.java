@@ -28,6 +28,7 @@ import javafx.scene.shape.ArcType;
 import javafx.stage.Stage;
 import project5.Controller.commandType;
 
+
 //import com.sun.java.util.jar.pack.Package.Class.Method;
 
 import java.io.*;
@@ -187,6 +188,36 @@ public class CritterView extends Application {
 	        gc.strokeArc(110, 160, 30, 30, 45, 240, ArcType.ROUND);
 	        gc.fillPolygon(new double[]{10, 40, 10, 40},
 	                       new double[]{210, 210, 240, 240}, 4);
+	        
+	    	if(CritterWorld.critterList == null) return;
+	    	
+	    	
+	    	
+//	    	for(Critter c : CritterWorld.critterList) {
+//	    		
+//	    		int x = c.x_coord;
+//	    		int y = c.y_coord;
+//	    		
+//	    		GraphicsContext gc = CritterView.canvas;
+//	    		
+//	    		gc.setFill(c.viewColor());
+//	    		
+//	    		switch(c.viewShape()) {
+//	    		case SQUARE:
+//	    			gc.strokeRect((double) x, (double) y, 3, 3);
+//	    			break;
+//	    		case CIRCLE:
+//	    			gc.strokeOval((double) x, (double) y, 3, 3);
+//	    			break;
+//	    		case DIAMOND:
+//	    		case TRIANGLE:
+//	    		
+//	    		default:
+//	    			break;
+//	    		}
+//	    		
+//	    		
+//	    	}
 	    	
 	    }
 	        
