@@ -1,3 +1,8 @@
+/*
+ * Ziping Liu zl3858
+ * Ankit Sharma as63437
+ */
+
 package project5;
 
 import project5.Critter.TestCritter;
