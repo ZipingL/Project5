@@ -81,7 +81,7 @@ public class Liu extends Critter {
 
 	@Override
 	public javafx.scene.paint.Color viewColor() { 
-		return javafx.scene.paint.Color.RED; 
+		return javafx.scene.paint.Color.PINK; 
 	}
 	
 

@@ -80,7 +80,7 @@ public class Ziping extends Critter {
 	
 	@Override
 	public javafx.scene.paint.Color viewColor() { 
-		return javafx.scene.paint.Color.DARKRED; 
+		return javafx.scene.paint.Color.YELLOW; 
 	}
 	
 
