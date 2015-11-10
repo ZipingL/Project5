@@ -264,27 +264,36 @@ public class Controller {
 			case STATS:
 			{
 				
-				Class<?> generic;
-				try{
-				generic = Class.forName("project4." + critter_name);
-				Critter c = (Critter) generic.newInstance();
-				
-				if(generic.isInstance(new Craig()))
+				if(critter_name != null && !critter_name.equals("All"))
 				{
-					System.out.println("CRAIGGG");
+					Class<?> generic;
+					try{
+					generic = Class.forName("project5." + critter_name);
+					Critter c = (Critter) generic.newInstance();
+					
+					if(generic.isInstance(new Craig()))
+					{
+						System.out.println("CRAIGGG");
+					}
+	
+					Class[] cArg = new Class[1];
+					cArg[0] = List.class;
+					ArrayList<Object> args = new ArrayList<>();
+					args.add(List.class.getClasses());
+					
+					Method runStats = c.getClass().getMethod("runStats",cArg);
+					runStats.invoke(c, Critter.getInstances(critter_name));
+					} catch(ClassNotFoundException | IllegalAccessException | InstantiationException | NoSuchMethodException | IllegalArgumentException | InvocationTargetException | InvalidCritterException e)
+					{
+						System.out.println("error processing: ");
+					}
 				}
-
-				Class[] cArg = new Class[1];
-				cArg[0] = List.class;
-				ArrayList<Object> args = new ArrayList<>();
-				args.add(List.class.getClasses());
 				
-				Method runStats = c.getClass().getMethod("runStats",cArg);
-				runStats.invoke(c, Critter.getInstances(critter_name));
-				} catch(ClassNotFoundException | IllegalAccessException | InstantiationException | NoSuchMethodException | IllegalArgumentException | InvocationTargetException | InvalidCritterException e)
+				else
 				{
-					System.out.println("error processing: ");
+					Critter.runStats(CritterWorld.critterList);
 				}
+				
 				break;
 			}
 			

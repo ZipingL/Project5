@@ -25,6 +25,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.ArcType;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import project5.Controller.commandType;
 
@@ -42,6 +43,7 @@ public class CritterView extends Application {
 	Canvas canvas = null;
 	Stage globalStage = null;
 	BorderPane border = null;
+
 	
 	ListView<String> listSteps = null;
 	ListView<String> listCritters = null;
@@ -75,10 +77,28 @@ public class CritterView extends Application {
 	        VBox vbox = addVBox();
 	        border.setLeft(vbox);
 	        
+	        HBox hbox = addHBox();
+	        border.setBottom(hbox);
+	        
 	        canvas = new Canvas(Params.world_height, Params.world_width);
 	        border.setCenter(canvas);
 	        globalStage.setScene(new Scene(border, 300, 250));
 	        globalStage.show();
+	    }
+	    
+	    private HBox addHBox() {
+	    	
+	    	HBox hbox = new HBox();
+	        hbox.setPadding(new Insets(15, 12, 15, 12));
+	        hbox.setSpacing(10);
+	        hbox.setStyle("-fx-background-color: #336699;");
+	    	
+	    	Text title = new Text("Statistics");
+	    	Text stats = new Text(CritterWorld.statOutput == null ? "No data" : CritterWorld.statOutput);
+	    	
+	        hbox.getChildren().addAll(title, stats);
+	        
+	        return hbox;
 	    }
 	    
 	    private VBox addVBox() {
@@ -89,7 +109,7 @@ public class CritterView extends Application {
 	    	
 	    	listCritters = new ListView<String>();
 	    	ObservableList<String> itemsCritters =FXCollections.observableArrayList (
-	    	    "Craig", "Ankit", "Sharma", "Ziping", "Liu");
+	    	    "Craig", "Ankit", "Sharma", "Ziping", "Liu", "All");
 	    	listCritters.setItems(itemsCritters);
 	    	
 	    	VBox vbox = new VBox();
@@ -133,6 +153,14 @@ public class CritterView extends Application {
 			    	GraphicsContext gc = canvas.getGraphicsContext2D();
 			    	drawShapes(gc);
 			        border.setCenter(canvas);
+			        
+			        Controller.runCommand(input[1], 0, commandType.STATS);
+			        
+			        
+			        HBox hbox = addHBox();
+			        border.setBottom(hbox);
+			        
+			        
 			        globalStage.setScene(new Scene(border, 300, 250));
 			        globalStage.show();
 			    }
@@ -190,12 +218,37 @@ public class CritterView extends Application {
 	    			gc.setStroke(c.viewColor());
 	    			gc.strokeOval((double) x, (double) y, 5, 5);
 	    			break;
-	    		case DIAMOND:
-	    		case TRIANGLE:
+
+//	    		case DIAMOND:
+//	    			double[] DiamondxPoints = { c.x_coord - 3, c.x_coord, c.x_coord, c.x_coord + 3 };
+//					double[] DiamondyPoints = { c.y_coord, c.y_coord - 3, c.y_coord + 3, c.y_coord };
+//					int DiamondnPoints = 4;
+//					gc.setStroke(c.viewColor());
+//					gc.strokePolygon(DiamondxPoints, DiamondyPoints, DiamondnPoints);
+//					break;
+//	    		case STAR:
+//	    			
+//	    			double[] StarxPoints = { c.x_coord, c.x_coord + 1, c.x_coord + 3, c.x_coord + 1,
+//												c.x_coord, c.x_coord - 1, c.x_coord - 3, c.x_coord - 1 };
+//					double[] StaryPoints = { c.y_coord + 3, c.y_coord + 1, c.y_coord, c.y_coord - 1,
+//												c.y_coord - 3, c.y_coord - 1, c.y_coord, c.y_coord + 1 };
+//					int StarnPoints = 8;
+//					gc.setStroke(c.viewColor());
+//					gc.strokePolygon(StarxPoints, StaryPoints, StarnPoints);
+//					
+//
+//					//System.out.println("DIAMOND DOGS");
+//					break;
+//	    		case TRIANGLE:
+//
+//	    			double[] TrianglexPoints = { c.x_coord - 3, c.x_coord, c.x_coord, c.x_coord + 3 };
+//					double[] TriangleyPoints = { c.y_coord, c.y_coord - 3, c.y_coord + 3, c.y_coord };
+//					int TrianglenPoints = 4;
+//					gc.setStroke(c.viewColor());
+//					gc.strokePolygon(TrianglexPoints, TriangleyPoints, TrianglenPoints);
+//					break;
 	    		
 	    		default:
-	    			gc.setFill(c.viewColor());
-	    			gc.fillOval((double) x, (double) y, 5, 5);
 	    			break;
 	    		}
 	    		

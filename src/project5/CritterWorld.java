@@ -8,6 +8,7 @@ import java.util.*;
 
 public class CritterWorld {
 	static ArrayList<Critter> critterList = new ArrayList<>();
+	static String statOutput = null;
 	static ArrayList<Critter> offspringList;
 	static char[][] currentWorldSnapShot;
 		

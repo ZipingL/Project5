@@ -231,7 +231,8 @@ public abstract class Critter {
 	
 	}	
 	
-	public static List<Critter> getInstances(String critter_class_name) throws InvalidCritterException 
+	public static List<Critter> getInstances(
+			String critter_class_name) throws InvalidCritterException 
 	{
 		List<Critter> result = new java.util.ArrayList<Critter>();
 		Class<?> generic = null;
@@ -260,7 +261,7 @@ public abstract class Critter {
 	}
 	
 	public static void runStats(List<Critter> critters) {
-		System.out.print("" + critters.size() + " critters as follows -- ");
+		String output = new String("" + critters.size() + " critters as follows -- ");
 		java.util.Map<String, Integer> critter_count = new java.util.HashMap<String, Integer>();
 		for (Critter crit : critters) {
 			String crit_string = crit.toString();
@@ -273,10 +274,13 @@ public abstract class Critter {
 		}
 		String prefix = "";
 		for (String s : critter_count.keySet()) {
-			System.out.print(prefix + s + ":" + critter_count.get(s));
-			prefix = ", ";
+			output += (prefix + s + ":" + critter_count.get(s));
+			output += ", ";
 		}
-		System.out.println();		
+		output += "\n";
+		
+		CritterWorld.statOutput = output;
+		System.out.print(output);
 	}
 	
 	/* the TestCritter class allows some critters to "cheat". If you want to 
@@ -635,8 +639,6 @@ public abstract class Critter {
 	}
 	
 	//Summary: Prints out the current world of critters with a border around it
-
-
 	public static void displayWorld2() {
 		
 
@@ -728,7 +730,10 @@ public abstract class Critter {
 		}
 	}
 	
-	public static class CritterView extends Application {
+	private static class CritterView extends Application {
+		
+		public static String statOutput;
+		public static int canvas;
 
 		public static void Controller(String[] args) {
 			//Critter.displayWorld();

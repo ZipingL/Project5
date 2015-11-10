@@ -63,7 +63,7 @@ public class Sharma extends Critter {
 	}
 	
 	public javafx.scene.paint.Color viewColor() { 
-		return javafx.scene.paint.Color.BLUE; 
+		return javafx.scene.paint.Color.POWDERBLUE; 
 	}
 	
 

@@ -79,8 +79,9 @@ public class Liu extends Critter {
 		return Critter.CritterShape.SQUARE;
 	}
 
+	@Override
 	public javafx.scene.paint.Color viewColor() { 
-		return javafx.scene.paint.Color.GREEN; 
+		return javafx.scene.paint.Color.RED; 
 	}
 	
 

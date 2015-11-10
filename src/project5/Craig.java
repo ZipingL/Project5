@@ -56,6 +56,7 @@ public class Craig extends Critter {
 	}
 
 	public static void runStats(java.util.List<Critter> craigs) {
+		String output = "";
 		int total_straight = 0;
 		int total_left = 0;
 		int total_right = 0;
@@ -67,12 +68,16 @@ public class Craig extends Critter {
 			total_back += c.genes[4];
 			total_left += c.genes[5] + c.genes[6] + c.genes[7];
 		}
-		System.out.print("" + craigs.size() + " total Craigs    ");
-		System.out.print("" + total_straight / (GENE_TOTAL * 0.01 * craigs.size()) + "% straight   ");
-		System.out.print("" + total_back / (GENE_TOTAL * 0.01 * craigs.size()) + "% back   ");
-		System.out.print("" + total_right / (GENE_TOTAL * 0.01 * craigs.size()) + "% right   ");
-		System.out.print("" + total_left / (GENE_TOTAL * 0.01 * craigs.size()) + "% left   ");
-		System.out.println();
+		output +=("" + craigs.size() + " total Craigs    ");
+		output +=("" + total_straight / (GENE_TOTAL * 0.01 * craigs.size()) + "% straight   ");
+		output +=("" + total_back / (GENE_TOTAL * 0.01 * craigs.size()) + "% back   ");
+		output +=("" + total_right / (GENE_TOTAL * 0.01 * craigs.size()) + "% right   ");
+		output +=("" + total_left / (GENE_TOTAL * 0.01 * craigs.size()) + "% left   ");
+		output +=("\n");
+		
+		System.out.println(output);
+		
+		CritterWorld.statOutput = output;
 	}
 	
 	@Override
