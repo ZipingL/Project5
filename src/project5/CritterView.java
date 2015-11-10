@@ -91,7 +91,7 @@ public class CritterView extends Application {
 	    	HBox hbox = new HBox();
 	        hbox.setPadding(new Insets(15, 12, 15, 12));
 	        hbox.setSpacing(10);
-	        hbox.setStyle("-fx-background-color: #336699;");
+	        hbox.setStyle("-fx-background-color: #ffa500;");
 	    	
 	    	Text title = new Text("Statistics");
 	    	Text stats = new Text(CritterWorld.statOutput == null ? "No data" : CritterWorld.statOutput);
@@ -115,7 +115,7 @@ public class CritterView extends Application {
 	    	VBox vbox = new VBox();
 	        vbox.setPadding(new Insets(15, 12, 15, 12));
 	        vbox.setSpacing(10);
-	        vbox.setStyle("-fx-background-color: #336699;");
+	        vbox.setStyle("-fx-background-color: #ffa500;");
 	    	
 	        Button buttonMake = new Button("Make");
 	        buttonMake.setPrefSize(100, 20);
